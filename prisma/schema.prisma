@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Kanji {
+  id         Int         @id @default(autoincrement())
+  kanji      String
+  mean       String
+  level      KanjiLevel
+  day        Int
+  onyomi     String[]
+  kunyomi    String[]
+  kanjiWords KanjiWord[]
+}
+
+enum KanjiLevel {
+  N1
+  N2
+  N3
+  N4
+  N5
+}
+
+model KanjiWord {
+  id    Int    @id @default(autoincrement())
+  word  String
+  kana  String
+  mean  String
+  score Int    @default(0)
+
+  kanjiId Int
+  kanji   Kanji @relation(fields: [kanjiId], references: [id], onDelete: Cascade)
+}
