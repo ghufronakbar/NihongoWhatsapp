@@ -12,10 +12,10 @@ const client = new Client({
     authStrategy: new LocalAuth({
         clientId: CLIENT_ID,
     }),
-    puppeteer: DISABLE_SANDBOX ? {
+    puppeteer: {
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox']
-    } : undefined
+    }
 });
 
 console.log('GET READY FOR 日本語勉強します')
